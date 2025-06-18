@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/collection/pom.xml" />
         <option value="$PROJECT_DIR$/schedule/pom.xml" />
         <option value="$PROJECT_DIR$/threadLocalPool/pom.xml" />
+        <option value="$PROJECT_DIR$/proxy/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
