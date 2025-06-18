@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="schedule" />
+        <module name="threadLocalPool" />
+        <module name="collection" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="collection_framework" target="17" />
+      <module name="lock_demo" target="17" />
+      <module name="mini_schedule" target="17" />
+      <module name="mini_spring" target="17" />
+      <module name="thread_pool_demo" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

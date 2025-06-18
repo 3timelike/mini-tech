@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/collection/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/collection/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/collection_framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/collection_framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lock_demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lock_demo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mini_schedule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mini_schedule/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mini_spring-main/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mini_spring-main/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/schedule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/schedule/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/threadLocalPool/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/threadLocalPool/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/thread_pool_demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/thread_pool_demo/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
