@@ -13,10 +13,14 @@
         <option value="$PROJECT_DIR$/schedule/pom.xml" />
         <option value="$PROJECT_DIR$/threadLocalPool/pom.xml" />
         <option value="$PROJECT_DIR$/proxy/pom.xml" />
+        <option value="$PROJECT_DIR$/code_pattern/pom.xml" />
+        <option value="$PROJECT_DIR$/buffer_pool/pom.xml" />
+        <option value="$PROJECT_DIR$/buffer-pool-demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/buffer-pool-demo/pom.xml" />
         <option value="$PROJECT_DIR$/collection_framework/pom.xml" />
         <option value="$PROJECT_DIR$/lock_demo/pom.xml" />
         <option value="$PROJECT_DIR$/mini_schedule/pom.xml" />

@@ -10,9 +10,12 @@
         <module name="proxy" />
         <module name="threadLocalPool" />
         <module name="collection" />
+        <module name="code_pattern" />
+        <module name="buffer_pool" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="buffer-pool-demo" target="17" />
       <module name="collection_framework" target="17" />
       <module name="lock_demo" target="17" />
       <module name="mini_schedule" target="17" />
