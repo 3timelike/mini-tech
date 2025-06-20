@@ -1,4 +1,4 @@
-package com.zsy;
+package com.zsy.collections;
 
 import java.util.Random;
 

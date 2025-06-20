@@ -1,4 +1,4 @@
-package com.zsy;
+package com.zsy.collections;
 
 /**
  * 自定义HashMap实现，基于数组+链表的结构

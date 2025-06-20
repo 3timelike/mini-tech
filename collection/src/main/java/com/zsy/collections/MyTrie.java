@@ -1,4 +1,4 @@
-package com.zsy;
+package com.zsy.collections;
 
 /**
  * 自定义Trie（前缀树）实现

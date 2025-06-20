@@ -1,4 +1,4 @@
-package com.zsy;
+package com.zsy.suanfa;
 
 public class MyQuickSort {
 

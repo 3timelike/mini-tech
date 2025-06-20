@@ -1,4 +1,4 @@
-package com.zsy;
+package com.zsy.collections;
 
 public interface List<E> extends  Iterable<E>{
 

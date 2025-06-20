@@ -1,23 +1,23 @@
-package com.zsy;
+package com.zsy.collections;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * 自定义动态数组实现，支持泛型元素存储和基本列表操作
+ * 自定义双向链表实现，支持泛型元素存储和基本列表操作
  *
- * <p>本实现提供类似Java ArrayList的核心功能，包括：</p>
+ * <p>本实现提供类似Java LinkedList的核心功能，包括：</p>
  * <ul>
- *   <li>动态扩容机制（默认初始容量10，按2倍扩容）</li>
- *   <li>支持索引访问和修改</li>
+ *   <li>基于节点的双向链表结构</li>
+ *   <li>支持头部和尾部高效操作</li>
  *   <li>提供元素遍历功能</li>
  *   <li>实现基本的增删改查操作</li>
  * </ul>
  *
  * <p><b>特性说明：</b></p>
  * <ul>
- *   <li>时间复杂度：随机访问O(1)，插入/删除平均O(n)</li>
+ *   <li>时间复杂度：访问O(n)，头尾操作O(1)</li>
  *   <li>空间复杂度：O(n)</li>
  *   <li><b>非线程安全</b> - 多线程环境下需要外部同步</li>
  * </ul>
@@ -26,43 +26,21 @@ import java.util.Objects;
  * @author zsy
  * @see List
  */
-public class MyArrayList<E> implements List<E> {
-
+public class MyLinkedList<E> implements List<E> {
     /**
-     * 当前列表中实际存储的元素数量
+     * 当前列表中元素的数量
      */
     private int size;
 
     /**
-     * 列表当前分配的存储容量
+     * 链表头节点
      */
-    private int capacity;
+    private Node<E> head;
 
     /**
-     * 存储列表元素的数组缓冲区
+     * 链表尾节点
      */
-    private Object[] elements;
-
-    /**
-     * 构造一个初始容量为10的空列表
-     */
-    public MyArrayList() {
-        this(10);
-    }
-
-    /**
-     * 构造具有指定初始容量的空列表
-     *
-     * @param initialCapacity 初始容量
-     * @throws IllegalArgumentException 如果初始容量为负数
-     */
-    public MyArrayList(int initialCapacity) {
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
-        }
-        this.capacity = initialCapacity;
-        this.elements = new Object[initialCapacity];
-    }
+    private Node<E> tail;
 
     /**
      * 将指定元素追加到列表末尾
@@ -71,8 +49,14 @@ public class MyArrayList<E> implements List<E> {
      */
     @Override
     public void add(E element) {
-        ensureCapacity();
-        elements[size++] = element;
+        Node<E> newNode = new Node<>(tail, element, null);
+        if (tail != null) {
+            tail.next = newNode;
+        } else {
+            head = newNode;
+        }
+        tail = newNode;
+        size++;
     }
 
     /**
@@ -85,9 +69,22 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public void add(E element, int index) {
         rangeCheckForAdd(index);
-        ensureCapacity();
-        System.arraycopy(elements, index, elements, index + 1, size - index);
-        elements[index] = element;
+
+        if (index == size) {
+            add(element);
+            return;
+        }
+
+        Node<E> target = getNode(index);
+        Node<E> prev = target.pre;
+        Node<E> newNode = new Node<>(prev, element, target);
+
+        if (prev == null) {
+            head = newNode;
+        } else {
+            prev.next = newNode;
+        }
+        target.pre = newNode;
         size++;
     }
 
@@ -101,13 +98,7 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public E remove(int index) {
         rangeCheck(index);
-        E oldValue = elementData(index);
-        int numMoved = size - index - 1;
-        if (numMoved > 0) {
-            System.arraycopy(elements, index + 1, elements, index, numMoved);
-        }
-        elements[--size] = null; // 清除引用，帮助GC
-        return oldValue;
+        return unlink(getNode(index));
     }
 
     /**
@@ -118,9 +109,9 @@ public class MyArrayList<E> implements List<E> {
      */
     @Override
     public boolean remove(E element) {
-        for (int i = 0; i < size; i++) {
-            if (Objects.equals(element, elements[i])) {
-                remove(i);
+        for (Node<E> x = head; x != null; x = x.next) {
+            if (Objects.equals(element, x.value)) {
+                unlink(x);
                 return true;
             }
         }
@@ -138,9 +129,10 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public E set(int index, E element) {
         rangeCheck(index);
-        E oldValue = elementData(index);
-        elements[index] = element;
-        return oldValue;
+        Node<E> node = getNode(index);
+        E oldVal = node.value;
+        node.value = element;
+        return oldVal;
     }
 
     /**
@@ -153,7 +145,7 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public E get(int index) {
         rangeCheck(index);
-        return elementData(index);
+        return getNode(index).value;
     }
 
     /**
@@ -173,74 +165,114 @@ public class MyArrayList<E> implements List<E> {
      */
     @Override
     public Iterator<E> iterator() {
-        return new ArrayListIterator();
+        return new LinkedListIterator();
     }
 
     // ========== 私有辅助方法 ==========
 
     /**
-     * 确保列表有足够的容量容纳新元素
+     * 获取指定索引处的节点
      */
-    private void ensureCapacity() {
-        if (size == capacity) {
-            resize();
+    private Node<E> getNode(int index) {
+        if (index < (size >> 1)) {
+            Node<E> x = head;
+            for (int i = 0; i < index; i++)
+                x = x.next;
+            return x;
+        } else {
+            Node<E> x = tail;
+            for (int i = size - 1; i > index; i--)
+                x = x.pre;
+            return x;
         }
     }
 
     /**
-     * 扩容列表存储容量
+     * 从链表中移除指定节点
      */
-    private void resize() {
-        int newCapacity = capacity * 2;
-        Object[] newElements = new Object[newCapacity];
-        System.arraycopy(elements, 0, newElements, 0, size);
-        elements = newElements;
-        capacity = newCapacity;
+    private E unlink(Node<E> node) {
+        final E element = node.value;
+        final Node<E> next = node.next;
+        final Node<E> prev = node.pre;
+
+        if (prev == null) {
+            head = next;
+        } else {
+            prev.next = next;
+            node.pre = null;
+        }
+
+        if (next == null) {
+            tail = prev;
+        } else {
+            next.pre = prev;
+            node.next = null;
+        }
+
+        node.value = null;
+        size--;
+        return element;
     }
 
     /**
      * 检查索引是否在有效范围内
      */
     private void rangeCheck(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
     }
 
     /**
      * 检查添加操作的索引是否在有效范围内
      */
     private void rangeCheckForAdd(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index > size)
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
     }
 
     /**
      * 构造索引越界异常信息
      */
     private String outOfBoundsMsg(int index) {
-        return "Index: " + index + ", Size: " + size;
+        return "Index: "+index+", Size: "+size;
     }
 
-    /**
-     * 获取指定位置的元素（带类型转换）
-     */
-    @SuppressWarnings("unchecked")
-    private E elementData(int index) {
-        return (E) elements[index];
-    }
-
-    // ========== 内部迭代器实现 ==========
+    // ========== 内部类实现 ==========
 
     /**
-     * 列表迭代器实现
+     * 双向链表节点实现
      */
-    private class ArrayListIterator implements Iterator<E> {
+    private static class Node<E> {
         /**
-         * 当前迭代位置
+         * 前驱节点
          */
-        private int cursor;
+        Node<E> pre;
+
+        /**
+         * 后继节点
+         */
+        Node<E> next;
+
+        /**
+         * 节点存储的值
+         */
+        E value;
+
+        Node(Node<E> pre, E value, Node<E> next) {
+            this.pre = pre;
+            this.value = value;
+            this.next = next;
+        }
+    }
+
+    /**
+     * 链表迭代器实现
+     */
+    private class LinkedListIterator implements Iterator<E> {
+        /**
+         * 当前迭代节点
+         */
+        private Node<E> current = head;
 
         /**
          * 检查是否还有更多元素可迭代
@@ -249,7 +281,7 @@ public class MyArrayList<E> implements List<E> {
          */
         @Override
         public boolean hasNext() {
-            return cursor != size;
+            return current != null;
         }
 
         /**
@@ -260,10 +292,11 @@ public class MyArrayList<E> implements List<E> {
          */
         @Override
         public E next() {
-            if (cursor >= size) {
+            if (!hasNext())
                 throw new NoSuchElementException();
-            }
-            return elementData(cursor++);
+            E element = current.value;
+            current = current.next;
+            return element;
         }
     }
 }

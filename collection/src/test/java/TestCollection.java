@@ -1,4 +1,4 @@
-import com.zsy.*;
+import com.zsy.collections.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
