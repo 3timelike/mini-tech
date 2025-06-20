@@ -16,4 +16,5 @@ public class MyInterfaceImpl implements MyInterface {
     public void func3() {
         System.out.println("f3");
     }
+
 }
