@@ -21,10 +21,12 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/buffer-pool-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/buffer_pool/pom.xml" />
         <option value="$PROJECT_DIR$/collection_framework/pom.xml" />
         <option value="$PROJECT_DIR$/lock_demo/pom.xml" />
         <option value="$PROJECT_DIR$/mini_schedule/pom.xml" />
         <option value="$PROJECT_DIR$/mini_spring-main/pom.xml" />
+        <option value="$PROJECT_DIR$/threadLocalPool/pom.xml" />
         <option value="$PROJECT_DIR$/thread_pool_demo/pom.xml" />
       </set>
     </option>
