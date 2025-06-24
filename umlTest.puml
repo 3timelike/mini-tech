@@ -1,0 +1,88 @@
+@startuml
+class com.zsy.AbstractFactory.AbstractFactoryPatternDemo {
++ {static} void main(String[])
++ {static} GUIFactory createFactory(String)
+}
+
+class com.zsy.AbstractFactory.MacButton {
++ void render()
++ void onClick()
+}
+
+class com.zsy.AbstractFactory.MacTextField {
++ void render()
++ void onInput()
+}
+
+interface com.zsy.AbstractFactory.GUIFactory {
+~ Button createButton()
+~ Checkbox createCheckbox()
+~ TextField createTextField()
+}
+
+class com.zsy.AbstractFactory.MacCheckbox {
++ void render()
++ void onCheck()
+}
+
+interface com.zsy.AbstractFactory.TextField {
+~ void render()
+~ void onInput()
+}
+
+interface com.zsy.AbstractFactory.Checkbox {
+~ void render()
+~ void onCheck()
+}
+
+class com.zsy.AbstractFactory.WindowsButton {
++ void render()
++ void onClick()
+}
+
+class com.zsy.AbstractFactory.WindowsTextField {
++ void render()
++ void onInput()
+}
+
+class com.zsy.AbstractFactory.Client {
+- Button button
+- Checkbox checkbox
+- TextField textField
++ void paint()
+}
+
+
+class com.zsy.AbstractFactory.WindowsFactory {
++ Button createButton()
++ Checkbox createCheckbox()
++ TextField createTextField()
+}
+
+interface com.zsy.AbstractFactory.Button {
+~ void render()
+~ void onClick()
+}
+
+class com.zsy.AbstractFactory.WindowsCheckbox {
++ void render()
++ void onCheck()
+}
+
+class com.zsy.AbstractFactory.MacFactory {
++ Button createButton()
++ Checkbox createCheckbox()
++ TextField createTextField()
+}
+
+
+
+com.zsy.AbstractFactory.Button <|.. com.zsy.AbstractFactory.MacButton
+com.zsy.AbstractFactory.TextField <|.. com.zsy.AbstractFactory.MacTextField
+com.zsy.AbstractFactory.Checkbox <|.. com.zsy.AbstractFactory.MacCheckbox
+com.zsy.AbstractFactory.Button <|.. com.zsy.AbstractFactory.WindowsButton
+com.zsy.AbstractFactory.TextField <|.. com.zsy.AbstractFactory.WindowsTextField
+com.zsy.AbstractFactory.GUIFactory <|.. com.zsy.AbstractFactory.WindowsFactory
+com.zsy.AbstractFactory.Checkbox <|.. com.zsy.AbstractFactory.WindowsCheckbox
+com.zsy.AbstractFactory.GUIFactory <|.. com.zsy.AbstractFactory.MacFactory
+@enduml
