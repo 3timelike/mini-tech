@@ -56,7 +56,7 @@ public class MyMaxHeap {
      */
     public MyMaxHeap(int initialCapacity) {
         if (initialCapacity <= 0) {
-            throw new IllegalArgumentException("Initial capacity must be positive");
+            throw new IllegalArgumentException("初始化容量必须>0");
         }
         this.capacity = initialCapacity;
         this.heap = new int[capacity];
@@ -78,7 +78,7 @@ public class MyMaxHeap {
      */
     public void insert(int element) {
         if (size == capacity) {
-            throw new IndexOutOfBoundsException("Heap is full");
+            throw new IndexOutOfBoundsException("堆满了");
         }
         heap[size] = element;
         heapifyUp(size);
@@ -92,7 +92,7 @@ public class MyMaxHeap {
      */
     public int getMax() {
         if (size == 0) {
-            throw new IndexOutOfBoundsException("Heap is empty");
+            throw new IndexOutOfBoundsException("堆是空的");
         }
         return heap[0];
     }
@@ -104,7 +104,7 @@ public class MyMaxHeap {
      */
     public int deleteMax() {
         if (size == 0) {
-            throw new IndexOutOfBoundsException("Heap is empty");
+            throw new IndexOutOfBoundsException("堆是空的");
         }
         int max = heap[0];
         heap[0] = heap[size - 1];

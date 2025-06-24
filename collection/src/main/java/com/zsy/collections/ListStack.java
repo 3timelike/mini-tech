@@ -13,7 +13,7 @@ public class ListStack {
     // 出栈
     public int pop() {
         if (isEmpty()) {
-            throw new RuntimeException("Stack is empty");
+            throw new RuntimeException("栈是空的");
         }
         int popped = top.data;
         top = top.next;
@@ -23,7 +23,7 @@ public class ListStack {
     // 查看栈顶元素
     public int peek() {
         if (isEmpty()) {
-            throw new RuntimeException("Stack is empty");
+            throw new RuntimeException("栈是空的");
         }
         return top.data;
     }

@@ -33,7 +33,7 @@ public class ArrayStack<E> {
     // 出栈
     public E pop() {
         if (isEmpty()) {
-            throw new RuntimeException("Stack is empty");
+            throw new RuntimeException("栈是空的");
         }
         return (E)stackArray[top--];
     }
@@ -41,7 +41,7 @@ public class ArrayStack<E> {
     // 查看栈顶元素
     public E peek() {
         if (isEmpty()) {
-            throw new RuntimeException("Stack is empty");
+            throw new RuntimeException("栈是空的");
         }
         return (E)stackArray[top];
     }

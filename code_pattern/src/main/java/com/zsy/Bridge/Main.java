@@ -22,7 +22,7 @@ public class Main {
         circle1.draw();
         circle2.draw();
         rectangle1.draw();
-        rectangle2.draw();
+        rectangle2 .draw();
 
         System.out.println("\n调整大小并重新绘制:");
         circle1.resize(2.5);

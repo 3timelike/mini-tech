@@ -58,7 +58,7 @@ public class MyArrayList<E> implements List<E> {
      */
     public MyArrayList(int initialCapacity) {
         if (initialCapacity < 0) {
-            throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
+            throw new IllegalArgumentException("容量必须>0" + initialCapacity);
         }
         this.capacity = initialCapacity;
         this.elements = new Object[initialCapacity];

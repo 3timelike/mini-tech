@@ -35,8 +35,8 @@ public class MergeSort {
 
     public static void main(String[] args) {
         int[] arr = {12, 11, 13, 5, 6, 7};
-        System.out.println("Original array: " + Arrays.toString(arr));
+        System.out.println("初始数组: " + Arrays.toString(arr));
         mergeSort(arr);
-        System.out.println("Sorted array: " + Arrays.toString(arr));
+        System.out.println("排序后的数组: " + Arrays.toString(arr));
     }
 }

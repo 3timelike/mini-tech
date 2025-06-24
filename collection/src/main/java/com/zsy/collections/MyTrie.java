@@ -52,7 +52,7 @@ public class MyTrie {
         MyTrie node = this;
         for (char c : word.toCharArray()) {
             if (c < 'a' || c > 'z') {
-                throw new IllegalArgumentException("Only lowercase letters a-z are supported");
+                throw new IllegalArgumentException("不支持其他字符");
             }
             if (node.children[c - 'a'] == null) {
                 node.children[c - 'a'] = new MyTrie();
