@@ -10,5 +10,6 @@ public class Main {
         System.out.println("\n制作茶:");
         Beverage tea = new Tea();
         tea.prepareRecipe();
+
     }
 }
